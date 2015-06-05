@@ -27,14 +27,20 @@ def trace_line_wrap(class_list):
 
 
 def extract_class(class_tuple):
+    def _get_class(mdl, clazz):
+        clazz_split = clazz.split('.')
+        clazz_split.pop(0)
+        clz = mdl
+        for clazz in clazz_split:
+            clz = getattr(clz, clazz)
+        return clz
+
     new_class_list = []
     for clazz in class_tuple.split(','):
         index = clazz.rfind('.')
         mdl = clazz[:index]
-        cls = clazz[index+1:]
         inst_mdl = __import__(mdl)
-        inst_cls = getattr(inst_mdl, cls)
-        new_class_list.append(inst_cls)
+        new_class_list.append(_get_class(inst_mdl, clazz))
     return tuple(new_class_list)
 
 
