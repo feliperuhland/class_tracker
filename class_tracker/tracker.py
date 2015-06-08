@@ -10,7 +10,7 @@ class TrackerException(Exception):
         self.line = line
 
     def __str__(self):
-        return repr('{} ({}) in {} near #{}'.format(self.local_var, self.local_var.__class__, self.filename, self.line))
+        return repr('{} ({}) in {} near #{}'.format(self.local_var.__class__, self.local_var, self.filename, self.line))
 
 
 def trace_line_wrap(class_list):
