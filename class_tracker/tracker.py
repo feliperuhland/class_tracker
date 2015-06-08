@@ -4,12 +4,12 @@ import sys
 
 
 class TrackerException(Exception):
-    def __init__(self, local_var, filename, line):
+    def __init__(self, local_var='?', filename='?', line='?'):
         self.local_var = local_var
         self.filename = filename
         self.line = line
 
-    def __str__(self, local_var, filename, line):
+    def __str__(self):
         return repr('{} in {} near #{}'.format(self.local_var, self.filename, self.line))
 
 
@@ -20,7 +20,7 @@ def trace_line_wrap(class_list):
                 raise TrackerException(
                     frame.f_locals[local_var],
                     frame.f_code.co_filename,
-                    frame.f_lineno
+                    frame.f_lineno,
                 )
         return trace_line_func
     return trace_line_func
